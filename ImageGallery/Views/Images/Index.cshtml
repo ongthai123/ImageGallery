@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ImageGallery.Models.Image>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Caption)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Created)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Location)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Url)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserID)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Album)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Caption)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Url)*@
+                <img class="img-responsive" style="max-width: 300px;" src="@Url.Content("~/images/items/" + @item.Url)" alt="">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Album.AlbumID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ImageID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ImageID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ImageID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
