@@ -30,7 +30,15 @@ namespace ImageGallery.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Images.Include(i => i.Album).Where(i => i.UserID == _userManager.GetUserId(User));
-            //var applicationDbContext = _context.Images.Select(item => item.UserID == _userManager.GetUserId(User));
+
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        // GET: All Images
+        public async Task<IActionResult> Home()
+        {
+            var applicationDbContext = _context.Images.Include(i => i.Album);
+
             return View(await applicationDbContext.ToListAsync());
         }
 
