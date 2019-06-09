@@ -14,6 +14,7 @@ namespace ImageGallery.Models
         public string Url { get; set; }
 
         public string UserID { get; set; }
+        public string UserName { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public int AlbumID { get; set; }
         public Album Album { get; set; }

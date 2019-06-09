@@ -102,6 +102,8 @@ namespace ImageGallery.Data.Migrations
 
                     b.Property<string>("UserID");
 
+                    b.Property<string>("UserName");
+
                     b.HasKey("ImageID");
 
                     b.HasIndex("AlbumID");

@@ -1,4 +1,5 @@
 ﻿@model ImageGallery.Models.Image
+@using Microsoft.AspNetCore.Http.Extensions
 
 @{
     ViewData["Title"] = "Details";
@@ -33,7 +34,7 @@
         </dt>
         <dd>
             @*@Html.DisplayFor(model => model.Url)*@
-            <img class="img-responsive" style="max-width: 300px;" src="@Url.Content("~/images/items/" + @Model.Url)" alt="">
+            <img class="img-responsive" style="max-width: 600px;" src="@Url.Content("~/images/items/" + @Model.Url)" alt="">
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.UserID)
@@ -42,18 +43,38 @@
             @Html.DisplayFor(model => model.UserID)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.Album)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Album.AlbumID)
+            @Html.DisplayFor(model => model.Album.Title)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ImageID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="ImageID" name="id"/>
-        <input type="submit" value="Delete" class="btn btn-default" />
-    </form>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId=523745374467031&autoLogAppEvents=1"></script>
+    <div class="fb-share-button" data-href="@Context.Request.GetDisplayUrl().ToString()" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.instagram.com%2F9thai6%2F%3Fhl%3Dvi&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+    <br />
+    @*<p>@Context.Request.GetDisplayUrl().ToString()</p>
+    <br />*@
+
+    @if (ViewData["CurrentUserId"] != null)
+    {
+        @if (ViewData["CurrentUserId"].ToString() == @Model.UserID)
+        {
+            <a asp-action="Index">Back to List</a>
+            <br />
+            <a asp-action="Edit" asp-route-id="@Model.ImageID">Edit</a>
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="ImageID" name="id" />
+                <input type="submit" value="Delete" class="btn btn-default" />
+            </form>
+        }
+    }
 </div>

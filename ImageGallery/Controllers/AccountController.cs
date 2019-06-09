@@ -65,7 +65,8 @@ namespace ImageGallery.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    //return RedirectToLocal(returnUrl);
+                    return RedirectToAction(nameof(ImagesController.Home), "Images");
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -247,7 +248,7 @@ namespace ImageGallery.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(ImagesController.Home), "Images");
         }
 
         [HttpPost]

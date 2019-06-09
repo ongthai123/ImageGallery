@@ -35,6 +35,7 @@ namespace ImageGallery.Controllers
         }
 
         // GET: All Images
+        [AllowAnonymous]
         public async Task<IActionResult> Home()
         {
             var applicationDbContext = _context.Images.Include(i => i.Album);
@@ -43,8 +44,11 @@ namespace ImageGallery.Controllers
         }
 
         // GET: Images/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
+            ViewData["CurrentUserId"] = _userManager.GetUserId(User);
+
             if (id == null)
             {
                 return NotFound();
@@ -78,6 +82,7 @@ namespace ImageGallery.Controllers
             if (ModelState.IsValid)
             {
                 var userId = _userManager.GetUserId(User);
+                var userName = _userManager.GetUserName(User);
                 DateTime today = DateTime.Now;
 
                 if(file != null && file.Length > 0)
@@ -90,6 +95,7 @@ namespace ImageGallery.Controllers
                     }
                     image.Url = fileName;
                     image.UserID = userId;
+                    image.UserName = userName;
                     image.Created = today;
                 }
 

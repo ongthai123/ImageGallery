@@ -47,8 +47,9 @@
                     @Html.DisplayFor(modelItem => item.Location)
                 </td>
                 <td>
-                    @*@Html.DisplayFor(modelItem => item.Url)*@
-                    <img class="img-responsive" style="max-width: 300px;" src="@Url.Content("~/images/items/" + @item.Url)" alt="">
+                    <a asp-action="Details" asp-route-id="@item.ImageID">
+                        <img class="img-responsive" style="max-width: 300px;" src="@Url.Content("~/images/items/" + @item.Url)" alt="">
+                    </a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.UserID)
