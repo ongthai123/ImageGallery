@@ -33,7 +33,7 @@
             @Html.DisplayNameFor(model => model.Url)
         </dt>
         <dd>
-            <img class="img-responsive" style="max-width: 300px;" src="@Url.Content("~/images/items/" + @Model.Url)" alt="">
+            <img class="img-responsive" style="max-width: 300px; filter: @Model.Filter" src="@Url.Content("~/images/items/" + @Model.Url)" alt="">
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.UserID)

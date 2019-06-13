@@ -4,6 +4,9 @@
     ViewData["Title"] = "Index";
 }
 
+<h4>@ViewData["userName"]</h4>
+<img src="~/images/items/img_avatar.png" alt="Avatar" style="width:100px; border-radius: 50%">
+
 <h2>Index</h2>
 
 <p>
@@ -48,7 +51,7 @@
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.ImageID">
-                        <img class="img-responsive" style="max-width: 300px;" src="@Url.Content("~/images/items/" + @item.Url)" alt="">
+                        <img class="img-responsive" style="max-width: 300px; filter: @item.Filter" src="@Url.Content("~/images/items/" + @item.Url)" alt="">
                     </a>
                 </td>
                 <td>
@@ -73,10 +76,17 @@
         {
         <div class="col-md-3">
             <a asp-action="Details" asp-route-id="@item.ImageID">
-                <img style="width: 300px; height: 200px; padding: 5px 10px;" src="@Url.Content("~/images/items/" + @item.Url)" alt="Card image cap">
+                <img style="width: 300px; height: 200px; padding: 5px 10px; filter: @item.Filter" src="@Url.Content("~/images/items/" + @item.Url)" alt="Card image cap">
             </a>
         </div>
         }
     </div>
 
 </div>
+
+<script>
+    const userName = @ViewData["userName"];
+    var [name, mail] = userName.split("");
+
+
+</script>

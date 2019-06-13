@@ -34,7 +34,7 @@
         </dt>
         <dd>
             @*@Html.DisplayFor(model => model.Url)*@
-            <img class="img-responsive" style="max-width: 600px;" src="@Url.Content("~/images/items/" + @Model.Url)" alt="">
+            <img class="img-responsive" style="max-width: 600px; filter: @Model.Filter" src="@Url.Content("~/images/items/" + @Model.Url)" alt="">
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.UserID)

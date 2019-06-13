@@ -18,33 +18,41 @@
                 <span asp-validation-for="Caption" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-                    <label asp-for="Created" class="control-label"></label>
-                    <input asp-for="Created" class="form-control" />
-                    <span asp-validation-for="Created" class="text-danger"></span>
-                </div>*@
+            <label asp-for="Created" class="control-label"></label>
+            <input asp-for="Created" class="form-control" />
+            <span asp-validation-for="Created" class="text-danger"></span>
+        </div>*@
             @*<div class="form-group">
-                    <label asp-for="Location" class="control-label"></label>
-                    <input asp-for="Location" class="form-control" />
-                    <span asp-validation-for="Location" class="text-danger"></span>
-                </div>*@
+            <label asp-for="Location" class="control-label"></label>
+            <input asp-for="Location" class="form-control" />
+            <span asp-validation-for="Location" class="text-danger"></span>
+        </div>*@
             <div id="locationField" class="form-group">
                 <label asp-for="Location" class="control-label"></label>
                 <input id="autocomplete"
                        placeholder="Enter your address"
                        onFocus="geolocate()"
-                       type="text" 
+                       type="text"
                        asp-for="Location"
-                        class="form-control"
-                        />
+                       class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Url" class="control-label"></label>
                 <input asp-for="Url" type="file" class="form-control" id="file" name="file" />
                 <span asp-validation-for="Url" class="text-danger"></span>
                 @*<input type="file" asp-for="Url" class="form-control"/>*@
-                <img id="img-preview" style="max-width: 300px;" class="img img-responsive" src="">
+                <img id="img-preview" style="max-width: 300px; " class="img img-responsive" src="">
             </div>
-
+            <div class="form-group">
+                <label class="control-label" asp-for="Filter"></label>
+                <select id="filter" class="browser-default custom-select form-control" onchange="myFilter(this.value)" asp-for="Filter">
+                    <option value="none">None</option>
+                    <option value="invert(100%)">Invert</option>
+                    <option value="grayscale(100%)">GrayScale</option>
+                    <option value="sepia(100%)">Sepia</option>
+                    <option value="brightness(150%)">Brightness</option>
+                </select>
+            </div>
             <div class="form-group">
                 <label asp-for="AlbumID" class="control-label"></label>
                 <select asp-for="AlbumID" class="form-control" asp-items="ViewBag.AlbumID"></select>
@@ -65,6 +73,13 @@
 }
 
 <script>
+    function myFilter(filter) {
+        document.getElementById("img-preview").style.filter = filter;
+    }
+</script>
+
+<script>
+
 // This sample uses the Autocomplete widget to help the user select a
 // place, then it retrieves the address components associated with that
 // place, and then it populates the form fields with those details.
