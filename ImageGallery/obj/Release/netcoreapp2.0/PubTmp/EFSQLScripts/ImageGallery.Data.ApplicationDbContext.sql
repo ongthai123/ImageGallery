@@ -400,3 +400,18 @@ END;
 
 GO
 
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190612155042_Filter to Image')
+BEGIN
+    ALTER TABLE [Image] ADD [Filter] nvarchar(max) NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190612155042_Filter to Image')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20190612155042_Filter to Image', N'2.0.3-rtm-10026');
+END;
+
+GO
+

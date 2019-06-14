@@ -4,12 +4,35 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
-
-<h4>Album</h4>
+<h2>Edit Album</h2>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<head>
+    <style>
+
+        .detailbox {
+            padding-left: 25%;
+            padding-right: 25%;
+        }
+
+        .detailinfo {
+            align-content: center;
+            padding: 10%;
+            background-color: #fff;
+            border-radius: 3px;
+            border: 1px solid #e6e6e6;
+            margin-left: -1px;
+            margin-right: -1px;
+            align-content: center;
+            padding: 10%;
+        }
+
+        body {
+            background-image: linear-gradient(to bottom right, #fafafa, white);
+        }
+    </style>
+</head>
+<div class="detailbox">
+    <div class="detailinfo" style="background-color:#fafafa; border-radius:8px;">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="AlbumID" />
@@ -24,7 +47,6 @@
         </form>
     </div>
 </div>
-
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

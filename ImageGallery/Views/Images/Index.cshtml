@@ -4,89 +4,106 @@
     ViewData["Title"] = "Index";
 }
 
-<h4>@ViewData["userName"]</h4>
-<img src="~/images/items/img_avatar.png" alt="Avatar" style="width:100px; border-radius: 50%">
+<div class="row" style="margin-top: 20px;">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4" style="text-align: center;">
+        <label style="cursor: pointer;">
+            <img src="~/images/items/img_avatar.png" alt="Avatar" style="width:100px; border-radius: 50%">
+            <input type="file" style="visibility: hidden;" />
+        </label>
+        <h3 id="userName" style="margin-top: 0;">@ViewData["userName"]</h3>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
 
-<h2>Index</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Caption)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Url)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Album)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Caption)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Created)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Location)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.ImageID">
-                        <img class="img-responsive" style="max-width: 300px; filter: @item.Filter" src="@Url.Content("~/images/items/" + @item.Url)" alt="">
-                    </a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Album.AlbumID)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ImageID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ImageID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ImageID">Delete</a>
-                </td>
-            </tr>
+<head>
+    <style>
+
+        .detailbox {
+            padding-left: 20%;
+            padding-right: 20%;
         }
-    </tbody>
-</table>
-<div class="row">
 
+        .detailinfo {
+            align-content: center;
+            padding: 10%;
+            background-color: #fff;
+            border-radius: 3px;
+            border: 1px solid #e6e6e6;
+            margin-left: -1px;
+            margin-right: -1px;
+            align-content: center;
+        }
+
+        body {
+            padding-top: 50px;
+            padding-bottom: 20px;
+            background-image: url('../images/camera.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            margin: auto;
+        }
+
+    </style>
+</head>
+<div class="detailbox">
+    <p>
+        <a asp-action="Create">
+            <input type="submit" value="Add Photo" class="btn btn-default" />
+        </a>
+    </p>
     <div>
         @foreach (var item in Model)
         {
-        <div class="col-md-3">
-            <a asp-action="Details" asp-route-id="@item.ImageID">
-                <img style="width: 300px; height: 200px; padding: 5px 10px; filter: @item.Filter" src="@Url.Content("~/images/items/" + @item.Url)" alt="Card image cap">
-            </a>
-        </div>
+            <div class="detailinfo" style="background-color:#fafafa; border-radius:8px;">
+                <div>
+                    <img src="~/images/items/img_avatar.png" alt="Avatar" style="width:23px; border-radius: 50%">
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </div>
+                <div>
+                    <strong>
+                        @Html.DisplayFor(modelItem => item.Caption)
+                    </strong>
+                </div>
+                <div class="container">
+                <div class="row">
+                    <div class="col-sm-4" style="padding: 0;">
+                        <img src="~/images/icons/icons8-marker-24.png">
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </div>
+                        @Html.DisplayFor(modelItem => item.Created)
+                </div>
+            </div>
+                <div>
+                    <a asp-action="Details" asp-route-id="@item.ImageID">
+                        <img class="img-responsive" src="@Url.Content("~/images/items/" + @item.Url)" style="filter: @item.Filter" alt="">
+                    </a>
+                </div>
+                <div>
+                    
+                </div>
+                @*<div>
+                    @Html.DisplayFor(modelItem => item.Album.Title)
+                </div>*@
+                <div style="text-align:center;">
+                    <a asp-action="Edit" asp-route-id="@item.ImageID"><img src="~/images/icons/icons8-pencil-32.png"></a> |
+                    <a asp-action="Details" asp-route-id="@item.ImageID"><img src="~/images/icons/icons8-view-details-filled-32.png"></a> |
+                    <a asp-action="Delete" asp-route-id="@item.ImageID"><img src="~/images/icons/icons8-trash-32.png"></a>
+                </div>
+            </div>
+            <br>
         }
     </div>
-
 </div>
 
 <script>
-    const userName = @ViewData["userName"];
-    var [name, mail] = userName.split("");
+    setName();
+    function setName() {
+        var userName = document.getElementById("userName").innerHTML;
+        var name = userName.substring(0, userName.lastIndexOf("@@"));
 
-
+        document.getElementById("userName").innerHTML = name;
+    }
 </script>

@@ -229,12 +229,6 @@ namespace ImageGallery.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public ActionResult Filter()
-        {
-            ViewData["Filter"] = "grayscale(100%);";
-            return null;
-        }
-
         private bool ImageExists(int id)
         {
             return _context.Images.Any(e => e.ImageID == id);

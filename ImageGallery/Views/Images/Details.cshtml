@@ -5,76 +5,102 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>Photo Details</h2>
 
-<div>
-    <h4>Image</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Caption)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Caption)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Url)
-        </dt>
-        <dd>
-            @*@Html.DisplayFor(model => model.Url)*@
-            <img class="img-responsive" style="max-width: 600px; filter: @Model.Filter" src="@Url.Content("~/images/items/" + @Model.Url)" alt="">
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UserID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserID)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Album)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Album.Title)
-        </dd>
-    </dl>
+<head>
+
+    <meta property="og:url" content="@Context.Request.GetDisplayUrl()" />
+    @*<meta property="og:type" content="website" />*@
+    <meta property="og:title" content="@Model.Caption" />
+    <meta property="og:description" content="@Model.Created" />
+    <meta property="og:image" content="https://imagegallery20190608043625.azurewebsites.net/Images/Items/@Model.Url" />
+
+    <style>
+
+        .detailbox {
+            padding-left: 20%;
+            padding-right: 20%;
+        }
+
+        .detailinfo {
+            align-content: center;
+            padding: 10%;
+            background-color: #fff;
+            border-radius: 3px;
+            border: 1px solid #e6e6e6;
+            margin-left: -1px;
+            margin-right: -1px;
+            align-content: center;
+        }
+
+        body {
+            padding-top: 50px;
+            padding-bottom: 20px;
+            background-image: url('../images/camera.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<div class="detailbox">
+    <div class="detailinfo">
+        <div>
+            <div>
+                <img src="~/images/items/img_avatar.png" alt="Avatar" style="width:23px; border-radius: 50%">
+                @Html.DisplayFor(model => model.UserName)
+            </div>
+            <div>
+                <b>
+                    @Html.DisplayFor(model => model.Caption)
+                </b>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4" style="padding: 0;">
+                        <img src="~/images/icons/icons8-marker-24.png">
+                        @Html.DisplayFor(model => model.Location)
+                    </div>
+                    @Html.DisplayFor(model => model.Created)
+                </div>
+            </div>
+        </div>
+        <div>
+            <div>
+                @*@Html.DisplayFor(model => model.Url)*@
+                <img class="img-responsive" style="filter: @Model.Filter; max-witdh: 600px" src="@Url.Content("~/images/items/" + @Model.Url)" alt="">
+            </div>
+            <div>
+
+            </div>
+        </div>
+        <div>
+            @*<div>
+                    @Html.DisplayFor(model => model.Album.Title)
+                </div>*@
+        </div>
+        <br />
+
+        <div>
+            <div id="fb-root"></div>
+            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId=523745374467031&autoLogAppEvents=1"></script>
+            <div class="fb-share-button" data-href="@Context.Request.GetDisplayUrl()" data-layout="button" data-size="large">
+                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.instagram.com%2F9thai6%2F%3Fhl%3Dvi&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
+            </div>
+
+            @if (ViewData["CurrentUserId"] != null)
+            {
+                @if (ViewData["CurrentUserId"].ToString() == @Model.UserID)
+                {
+                    <a asp-action="Edit" asp-route-id="@Model.ImageID"><img src="~/images/icons/icons8-pencil-32.png"></a>
+                    <a asp-action="Delete" asp-route-id="@Model.ImageID"><img src="~/images/icons/icons8-trash-32.png"></a>
+                }
+            }
+        </div>
+    </div>
 </div>
 <div>
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId=523745374467031&autoLogAppEvents=1"></script>
-    <div class="fb-share-button" data-href="@Context.Request.GetDisplayUrl().ToString()" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.instagram.com%2F9thai6%2F%3Fhl%3Dvi&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
-    <br />
-    @*<p>@Context.Request.GetDisplayUrl().ToString()</p>
-    <br />*@
-
-    @if (ViewData["CurrentUserId"] != null)
-    {
-        @if (ViewData["CurrentUserId"].ToString() == @Model.UserID)
-        {
-            <a asp-action="Index">Back to List</a>
-            <br />
-            <a asp-action="Edit" asp-route-id="@Model.ImageID">Edit</a>
-            <form asp-action="Delete">
-                <input type="hidden" asp-for="ImageID" name="id" />
-                <input type="submit" value="Delete" class="btn btn-default" />
-            </form>
-        }
-    }
+    <a asp-action="Index">Back to List</a>
 </div>
